@@ -2,48 +2,94 @@ Structural Design Patterns provides relationship between objects
 
 1) Adapter    : Allows for two incompatible classes to work together by wrapping an interface around one of the existing classes.
 -->  A special object that converts the interface of one object so that another object can understand it.
+
 -->  The adapter gets an interface, compatible with one of the existing objects.
      Using this interface, the existing object can safely call the adapter’s methods.
-     Upon receiving a call, the adapter passes the request to the second object, but in a format and order that the second object expects.
+     Upon receiving a call, the adapter passes the request to the second object, but in a 
+     format and order that the second object expects.
+
+--> One advantage of the Adapter Pattern is that you don’t need to change the existing class or interface. 
+    By introducing a new class, which acts as an adapter between the interface and the class, you avoid any 
+    changes to the existing code. That limits the scope of your changes to your software component and avoids 
+    any changes and side-effects in other components or applications.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
 2) Bridge     : Decouples an abstraction so two classes can vary independently.
 -->  This pattern involves an interface which acts as a bridge which makes the 
      functionality of concrete classes independent from interface implementer classes. 
      Both types of classes can be altered structurally without affecting each other.
 
+-->  The bridge pattern allows the Abstraction and the Implementation to be developed 
+     independently and the client code can access only the Abstraction part without 
+     being concerned about the Implementation part.
+
+-->  The abstraction is an interface or abstract class and the implementor is also an interface or abstract class.
+     The abstraction contains a reference to the implementor. Children of the abstraction are referred to as refined 
+     abstractions, and children of the implementor are concrete implementors. 
+     Since we can change the reference to the implementor in the abstraction, we are able to change the abstraction’s 
+     implementor at run-time. Changes to the implementor do not affect client code.
+
+-->  Abstraction – core of the bridge design pattern and defines the crux. Contains a reference to the implementer.
+     Refined Abstraction – Extends the abstraction takes the finer detail one level below. Hides the finer elements 
+     from implemetors.
+     Implementer – It defines the interface for implementation classes. This interface does not need to correspond 
+     directly to the abstraction interface and can be very different. Abstraction imp provides an implementation in 
+     terms of operations provided by Implementer interface.
+
+-->  Concrete Implementation – Implements the above implementer by providing concrete implementation.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
 3) Composite  : Takes a group of objects into a single object.
 -->  Composite pattern is one of the most widely used patterns in the industry 
      and addresses a very significant and subtle problem.
+
 -->  It is used whenever the user wants to treat the individual object in the same way as the collection of those 
      individual objects for e.g you might want to consider a page from the copy as same as the whole copy which is 
      basically a collection of the pages or if you want to create a hierarchy of something where you might want to 
      consider the whole thing as the object .
+
 -->  This pattern creates a class that contains group of its own objects. This class provides ways to modify its 
      group of same objects.
+
 -->  But in simple words, the Composite Design Pattern is a Structural Design Pattern with a goal to treat the group 
      of objects in the same manner as a single object.
+
 -->  “Compose objects into tree structures to represent part-whole hierarchies”: A part-whole hierarchy is composed of 
      smaller individual objects called Parts and larger objects called Wholes that are aggregation of Parts. What the 
      pattern says is- for part-whole hierarchies, create tree structures to represent relationships between the Parts and Wholes.
+
 -->  “Composite lets clients treat individual objects and compositions of objects uniformly”: This means that a client should be 
      able to apply the same operations over both aggregation of objects (Wholes) and individual objects (Parts).
+
+-----------------------------------------------------------------------------------------------------------------------------------
 
 4) Decorator  : Allows for an object’s behavior to be extended dynamically at run time.
 --> Decorator pattern allows a user to add new functionality to an existing object without altering its structure. 
     This type of design pattern comes under structural pattern as this pattern acts as a wrapper to existing class.
+
 --> This pattern creates a decorator class which wraps the original class and provides additional functionality 
     keeping class methods signature intact.
+
 --> In other words, the client has the freedom to create an object and then extend it by adding a variety of “features” 
     to it. A good analogy to simplify this pattern is: “Wrapping a gift, putting it in a box, and wrapping the box”.
+
 --> The Decorator pattern provides a more flexible way to add responsibilities to objects than can be had with
     static (multiple) inheritance. With decorators, responsibilities can be added and removed at run-time simply by attaching 
     and detaching them.
+
 --> In contrast, inheritance requires creating a new class for each additional
     responsibility.This gives rise to many classes and increases the complexity of a system.
+
 --> A decorator is different from an adapter in that a decorator only changes an object's responsibilities, not its interface; 
     an adapter will give an object a completely new interface.
 
+-----------------------------------------------------------------------------------------------------------------------------------
+
 5) Facade     : Provides a simple interface to a more complex underlying object.
 --> Provide a unified interface to a set of interfaces in a subsystem.
+
 --> Structuring a system into subsystems helps reduce complexity. A common design
     goal is to minimize the communication and dependencies between subsystems. One
     way to achieve this goal is to introduce a facade object that provides a single,
@@ -51,6 +97,7 @@ Structural Design Patterns provides relationship between objects
 
 --> Reducing compilation dependencies is vital in large software systems. You
     want to save time by minimizing recompilation when subsystem classes change.
+
 --> Reducing compilation dependencies with facades can limit the recompilation
     needed for a small change in an important subsystem. A facade can also
     simplify porting systems to other platforms, because it's less likely that
@@ -59,19 +106,64 @@ Structural Design Patterns provides relationship between objects
 --> It doesn't prevent applications from using subsystem classes if they need
     to.Thus you can choose between ease of use and generality.   
 
+--> Clients communicate with the subsystem by sending requests to Facade, which
+    forwards them to the appropriate subsystem object(s). Although the
+    subsystem objects perform the actual work, the facade may have to do work
+    of its own to translate its interface to subsystem interfaces.
+    Clients that use the facade don't have to access its subsystem objects
+    directly
+
+---------------------------------------------------------------------------------------------------------------------
+
 6) Flyweight  : Reduces the cost of complex object models.
 --> Flyweight is a structural design pattern that allows programs to support vast 
     quantities of objects by keeping their memory consumption low.
+
 --> In Flyweight pattern we use a HashMap that stores reference to the object which 
     have already been created, every object is associated with a key. Now when a client wants 
     to create an object, he simply has to pass a key associated with it and if the object has 
     already been created we simply get the reference to that object else it creates a new 
     object and then returns it reference to the client.
+
 --> The idea behind Flyweight pattern is sharable object.
+
+--> The Flyweight uses sharing to support large numbers of objects efficiently. 
+    Modern web browsers use this technique to prevent loading same images twice. 
+    When browser loads a web page, it traverse through all images on that page. 
+    Browser loads all new images from Internet and places them the internal cache. 
+    For already loaded images, a flyweight object is created, which has some unique 
+    data like position within the page, but everything else is referenced to the cached one.
+
+--> In other words, the state of an object can be decomposed with respect to a group of 
+    objects as an intrinsic state and an extrinsic state, where the intrinsic state is the 
+    intersection of the states of all objects of the group and the extrinsic state is the 
+    difference of the state of the object and the intrinsic state.
+
+--> extrinsic - state that belongs to the context of the object (external) or unique to that instance
+
+    intrinsic - state that naturally belongs to the 'FlyWeight' object and thus should be permanent or 
+    immutable (internal) or context free.
+
+-----------------------------------------------------------------------------------------------------------------------------------
 
 7) Proxy      : Provides a placeholder interface to an underlying object to control access, reduce cost, or reduce complexity
 --> Proxy means ‘in place of’, representing’ or ‘in place of’ or ‘on behalf of’ are literal 
     meanings of proxy and that directly explains Proxy Design Pattern.
+
 --> A class represents functionality of another class. This type of design pattern comes under structural pattern.
+
 --> A very simple real life scenario is our college internet, which restricts few site access. 
-    The proxy first checks the host you are connecting to, if it is not part of restricted site list, then it connects to the real internet.
+    The proxy first checks the host you are connecting to, if it is not part of restricted site list, 
+    then it connects to the real internet.
+
+--> Remote Proxies : They are responsible for representing the object located remotely. 
+
+--> Virtual Proxies: These proxies will provide some default and instant results if the real object is supposed to 
+     take sometime to produce results.
+
+--> Protection Proxy : If an application does not have access to some resource then such proxies 
+    will talk to the objects in applications that have access to that resource and then get the result back.
+
+--> Smart Proxy: A smart proxy provides additional layer of security by interposing specific actions when 
+    the object is accessed. An example can be to check if the real object is locked before it is accessed 
+    to ensure that no other object can change it.
