@@ -1,7 +1,36 @@
 Behavioural Patterns help define how objects interact.
-
+Behavioral patterns describe not just patterns of objects or classes but also the patterns of communication between them.
 Behavior Design Patterns
 1) Chain of Responsibility : Delegates commands to a chain of processing objects.
+                           --> The first object in the chain receives the request and either handlesit or forwards
+			       it to the next candidate on the chain, which doeslikewise.
+			   --> Laibility of Chain in Responsibility
+			       Since a request has no explicit receiver, there's
+			       no guarantee it'll be handled—the request can fall off the end of the
+			       chain without ever being handled. A request can also go unhandled when
+                               the chain is not configured properly.
+			   --> In the Java world, we benefit from Chain of Responsibility every day. 
+			       One such classic example is Servlet Filters in Java that allow multiple filters to process an HTTP request. 
+			       Though in that case, each filter invokes the chain instead of the next filter.
+			   
+			   --> public class CustomFilter implements Filter {
+
+    						public void doFilter(
+      						ServletRequest request,
+      						ServletResponse response,
+      						FilterChain chain)
+      						throws IOException, ServletException {
+
+        					// process the request
+
+        					// pass the request (i.e. the command) along the filter chain
+        						chain.doFilter(request, response);
+    							}
+					}
+			   --> Mostly, it can get broken easily:
+					if a processor fails to call the next processor, the command gets dropped
+					if a processor calls the wrong processor, it can lead to a cycle
+
 2) Command                 : Creates objects which encapsulate actions and parameters.
 3) Interpreter             : Implements a specialized language.
 4) Iterator                : Accesses the elements of an object sequentially without exposing its underlying representation.
@@ -10,6 +39,19 @@ Behavior Design Patterns
 6) Memento		   : Provides the ability to restore an object to its previous state.
 7) Observer		   : Is a publish/subscribe pattern which allows a number of observer objects to see an event.
 8) State		   : Allows an object to alter its behavior when its internal state changes.
+      			    --> According to GoF definition, a state allows an object to alter its behavior when its internal state changes. 
+  			        The object will appear to change its class.
+			    --> In any application, when we are dealing with an object which can be in different states during 
+			        it’s life-cycle and how it processes incoming requests (or make state transitions) based on it’s 
+			        present state – we can use the state pattern.
+			    --> If we do not use the state pattern in such case, we will end up having lots of if-else statements 
+			        which make the code base ugly, unnecessarily complex and hard to maintain. 
+				State pattern allows the objects to behave differently based on the current state, and we can 
+			define state-specific behaviors within different classes.
+			    --> We can easily add new states and new behaviors in the application without impacting other components.
+			    --> The state pattern is also known as objects for states. So, we can assume that more states need 
+			        more codes, and the obvious side effect is difficult maintenance for us.
+
 9) Strategy		   : Allows one of a family of algorithms to be selected on-the-fly at run-time.
 10)Template Method         : Defines the skeleton of an algorithm as an abstract class, allowing its sub-classes 
 			     to provide concrete behavior.
