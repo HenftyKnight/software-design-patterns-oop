@@ -32,12 +32,75 @@ Behavior Design Patterns
 					if a processor calls the wrong processor, it can lead to a cycle
 
 2) Command                 : Creates objects which encapsulate actions and parameters.
+--> A request is wrapped under an object as command and passed to invoker object. 
+    Invoker object looks for the appropriate object which can handle this command 
+    and passes the command to the corresponding object which executes the command.
+
+--> In command pattern there is a Command object that encapsulates a request by 
+    binding together a set of actions on a specific receiver. It does so by exposing 
+    just one method execute() that causes some actions to be invoked on the receiver.
+
+--> Parameterizing other objects with different requests in our analogy means that the 
+    button used to turn on the lights can later be used to turn on stereo or maybe open 
+    the garage door.
+
+--> queue or log requests, and support undoable operations means that Command’s Execute 
+    operation can store state for reversing its effects in the Command itself. The Command 
+    may have an added unExecute operation that reverses the effects of a previous call to 
+    execute. It may also support logging changes so that they can be reapplied in case of a system crash.
+
+--> Two important aspects of the Command pattern: interface separation (the invoker is isolated from the 
+    receiver), time separation (stores a ready-to-go processing request that's to be stated later).
+    
 3) Interpreter             : Implements a specialized language.
+--> Given a language, define a representation for its grammar along with an interpreter that uses 
+    the representation to interpret sentences in the language
+
+--> For example, searching for strings that match a pattern is a common problem. 
+
+--> Regular expressions are a standard language for specifying patterns of strings. 
+
+--> Rather than building custom algorithms to match each pattern against strings, search 
+    algorithms could interpret a regular expression that specifies a set of strings to match.
+
+--> In such cases, instead of treating every distinct combination of rules as a separate case, 
+    it may be beneficial for the application to have the ability to interpret a generic combination of rules. 
+
+--> The Interpreter pattern can be used to design this ability in an application so that other applications 
+    and users can specify operations using a simple language defined by a set of grammar rules.
+
 4) Iterator                : Accesses the elements of an object sequentially without exposing its underlying representation.
+--> Iterator pattern is very commonly used design pattern in Java and .Net programming environment. 
+    This pattern is used to get a way to access the elements of a collection object in sequential manner 
+    without any need to know its underlying representation.
+
+--> Suppose we are creating a notification bar in our application that displays all the notifications 
+    which are held in a notification collection. Notification collection provides an iterator to 
+    iterate over its elements without exposing how it has implemented the collection 
+    (E.g. array) to the Client (Notifications).
+
+--> An aggregate object such as a list should give you a way to access its elements without 
+    exposing its internal structure. Moreover, you might want to traverse the list in different  
+    ways, depending on what you need to accomplish. But you probably don't want to bloat the List 
+    interface with operations for different traversals, even if you could anticipate the ones you'll require. 
+    You might also need to have more than one traversal pending on the same list.
+
 5) Mediator                : Allows loose coupling between classes by being the only class that has detailed knowledge 
 			     of their methods.
+-->
 6) Memento		   : Provides the ability to restore an object to its previous state.
+-->
 7) Observer		   : Is a publish/subscribe pattern which allows a number of observer objects to see an event.
+--> Observer pattern is used when there is one-to-many relationship between 
+    objects such as if one object is modified, its dependent objects are to be notified automatically.
+    E.g Youtube subscription
+
+--> A video publisher(subject) is in the business and publishes video (data). 
+    If you(user of data/observer) are interested in the video you subscribe(register), 
+    and if a new video is uploaded it gets delivered to you. 
+    If you unsubscribe(unregister) you stop getting new videos. Publisher doesn’t know who you are and 
+    how you use youtube channels, it just delivers it to you because you are a subscriber(loose coupling).
+
 8) State		   : Allows an object to alter its behavior when its internal state changes.
       			    --> According to GoF definition, a state allows an object to alter its behavior when its internal state changes. 
   			        The object will appear to change its class.
@@ -53,6 +116,8 @@ Behavior Design Patterns
 			        more codes, and the obvious side effect is difficult maintenance for us.
 
 9) Strategy		   : Allows one of a family of algorithms to be selected on-the-fly at run-time.
+-->
 10)Template Method         : Defines the skeleton of an algorithm as an abstract class, allowing its sub-classes 
-			     to provide concrete behavior.
-11)Visitor		   : Separates an algorithm from an object structure by moving the hierarchy of methods into one object.
+-->			     to provide concrete behavior.
+11)Visitor: Separates an algorithm from an object structure by moving the hierarchy of methods into one object.
+-->
